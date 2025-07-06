@@ -117,8 +117,8 @@ export default function HomePage() {
       <section className="py-12 px-4 animate-fade-in-up">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-8">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in-up">
-              Привезем любые товары из Америки
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4 animate-fade-in-up">
+              привезем любые товары из америки
             </h2>
           </div>
 
@@ -135,7 +135,7 @@ export default function HomePage() {
         style={{ animationDelay: "1000ms" }}
       >
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-8 animate-fade-in-up dark:text-white">Каталог товаров</h2>
+          <h2 className="text-2xl font-bold text-center mb-8 animate-fade-in-up dark:text-white">каталог брендов</h2>
           <ProductGrid />
         </div>
       </section>
@@ -154,7 +154,7 @@ export default function HomePage() {
       <footer className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-white py-8 px-4 animate-fade-in-up transition-colors duration-300">
         <div className="container mx-auto text-center">
           <p className="text-gray-600 dark:text-gray-400">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Сайт был создан студией Stellar Web-design
           </p>
         </div>
       </footer>

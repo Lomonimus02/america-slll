@@ -23,34 +23,36 @@ interface CustomerData {
   name: string
   phone: string
   email: string
+  telegramNick?: string
 }
 
 interface OrderData {
   orderId: string
   items: CartItem[]
-  totalPrice: number
   timestamp: string
   customer: CustomerData
 }
 
 export class TelegramService {
   private formatOrderMessage(orderData: OrderData): string {
-    const { orderId, items, totalPrice, customer } = orderData
+    const { orderId, items, customer } = orderData
 
-    const orderHeader = `🛍️ <b>Новый заказ из America Express</b>\n📋 <b>Заказ №${orderId}</b>\n\n`
+    const orderHeader = `🛍️ <b>Новый заказ из IIIstore</b>\n📋 <b>Заказ №${orderId}</b>\n\n`
 
     const customerInfo =
       `👤 <b>Данные клиента:</b>\n` +
       `   📝 Имя: <b>${customer.name}</b>\n` +
       `   📞 Телефон: <b>${customer.phone}</b>\n` +
-      `   📧 Email: <b>${customer.email}</b>\n\n`
+      `   📧 Email: <b>${customer.email}</b>\n` +
+      (customer.telegramNick ? `   💬 Telegram: <b>@${customer.telegramNick}</b>\n` : '') +
+      `\n`
 
     const itemsList =
-      `🛒 <b>Товары:</b>\n` +
+      `🛒 <b>Заказанные бренды:</b>\n` +
       items
         .map((item, index) => {
           let itemText = `${index + 1}. <b>${item.name}</b>\n`
-          itemText += `   💰 $${item.price} × ${item.quantity} = <b>$${item.price * item.quantity}</b>\n`
+          itemText += `   📦 Количество: <b>${item.quantity}</b>\n`
 
           if (item.selectedOptions) {
             const options = []
@@ -69,7 +71,10 @@ export class TelegramService {
         .join("\n")
 
     const orderFooter =
-      `\n💵 <b>Итого: $${totalPrice}</b>\n` + `📦 <i>+ доставка из США (рассчитается отдельно)</i>\n\n`
+      `\n💬 <b>Следующие шаги:</b>\n` +
+      `📞 Мы свяжемся с вами для обсуждения деталей заказа\n` +
+      `💰 Цены и итоговая стоимость будут рассчитаны индивидуально\n` +
+      `📦 Доставка из США рассчитывается отдельно\n\n`
 
     const timestamp = `📅 ${new Date().toLocaleString("ru-RU", {
       timeZone: "Europe/Moscow",
@@ -85,7 +90,6 @@ export class TelegramService {
 
   async sendOrderWithCustomerData(
     items: CartItem[],
-    totalPrice: number,
     customerData: CustomerData,
   ): Promise<{ success: boolean; error?: string; orderId?: string }> {
     try {
@@ -96,7 +100,6 @@ export class TelegramService {
       const orderData: OrderData = {
         orderId,
         items,
-        totalPrice,
         timestamp: new Date().toISOString(),
         customer: customerData,
       }

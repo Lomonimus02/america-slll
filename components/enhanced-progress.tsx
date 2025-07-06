@@ -43,7 +43,7 @@ export function EnhancedProgress({ departureDate, returnDate, currentDate }: Enh
     }
 
     updateTimer()
-    const interval = setInterval(updateTimer, 1000)
+    const interval = setInterval(updateTimer, 60000) // Обновляем каждую минуту
     return () => clearInterval(interval)
   }, [departureDate, returnDate])
 
@@ -92,7 +92,7 @@ export function EnhancedProgress({ departureDate, returnDate, currentDate }: Enh
           {/* Прогресс-бар без видимых разделений */}
           <div className="w-full h-4 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden relative">
             <div
-              className="h-full bg-gradient-to-r from-blue-500 to-green-500 rounded-full transition-all duration-500 ease-in-out"
+              className="h-full bg-blue-900 rounded-full transition-all duration-500 ease-in-out"
               style={{ width: `${progress}%` }}
             />
           </div>

@@ -188,9 +188,9 @@ ${formData.request}
             />
           </div>
 
-          <Button 
-            type="submit" 
-            className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200 hover:scale-105"
+          <Button
+            type="submit"
+            className="w-full bg-blue-900 hover:bg-blue-950 text-white transition-all duration-200 hover:scale-105"
             disabled={isSubmitting}
           >
             {isSubmitting ? (

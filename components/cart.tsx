@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { X, Minus, Plus, Send, Copy, CheckCircle, User, Phone, Mail } from "lucide-react"
+import { X, Minus, Plus, Send, Copy, CheckCircle, User, Phone, Mail, MessageCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -10,6 +10,7 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { useCart } from "@/hooks/use-cart"
 import { useToast } from "@/hooks/use-toast"
 import { telegramService } from "@/lib/telegram"
@@ -23,6 +24,8 @@ interface CustomerData {
   name: string
   phone: string
   email: string
+  telegramNick?: string
+  contactMethod: 'telegram' | 'whatsapp'
 }
 
 export function Cart({ isOpen, onClose }: CartProps) {
@@ -35,6 +38,8 @@ export function Cart({ isOpen, onClose }: CartProps) {
     name: "",
     phone: "",
     email: "",
+    telegramNick: "",
+    contactMethod: "telegram",
   })
 
   const handleProceedToCheckout = () => {
@@ -50,11 +55,25 @@ export function Cart({ isOpen, onClose }: CartProps) {
   }
 
   const handleSendToTelegram = async () => {
-    // Простая проверка
-    if (!customerData.name || !customerData.phone || !customerData.email) {
+    // Проверка в зависимости от способа связи
+    const isValidForTelegram = customerData.contactMethod === 'telegram' &&
+      customerData.name && customerData.phone && customerData.email && customerData.telegramNick
+
+    const isValidForWhatsApp = customerData.contactMethod === 'whatsapp' &&
+      customerData.name && customerData.phone && customerData.email
+
+    if (!isValidForTelegram && !isValidForWhatsApp) {
+      const missingFields = []
+      if (!customerData.name) missingFields.push("Имя")
+      if (!customerData.phone) missingFields.push("Телефон")
+      if (!customerData.email) missingFields.push("Email")
+      if (customerData.contactMethod === 'telegram' && !customerData.telegramNick) {
+        missingFields.push("Telegram никнейм")
+      }
+
       toast({
-        title: "Заполните все поля",
-        description: "Все поля обязательны для заполнения",
+        title: "Заполните все обязательные поля",
+        description: `Не заполнены: ${missingFields.join(", ")}`,
         variant: "destructive",
       })
       return
@@ -63,7 +82,7 @@ export function Cart({ isOpen, onClose }: CartProps) {
     setIsSending(true)
 
     try {
-      const result = await telegramService.sendOrderWithCustomerData(items, getTotalPrice(), customerData)
+      const result = await telegramService.sendOrderWithCustomerData(items, customerData)
 
       if (result.success && result.orderId) {
         setLastOrderId(result.orderId)
@@ -128,10 +147,12 @@ export function Cart({ isOpen, onClose }: CartProps) {
   return (
     <Sheet open={isOpen} onOpenChange={handleClose}>
       <SheetContent className="w-full sm:max-w-lg flex flex-col h-full">
-        <SheetHeader className="flex-shrink-0">
-          <SheetTitle>Корзина</SheetTitle>
-          <SheetDescription>Ваши товары для заказа из Америки</SheetDescription>
-        </SheetHeader>
+        {!showCheckout && (
+          <SheetHeader className="flex-shrink-0">
+            <SheetTitle>Корзина</SheetTitle>
+            <SheetDescription>Ваши товары для заказа из Америки</SheetDescription>
+          </SheetHeader>
+        )}
 
         <div className="flex flex-col flex-1 min-h-0">
           {/* Показываем номер заказа после успешной отправки */}
@@ -184,6 +205,26 @@ export function Cart({ isOpen, onClose }: CartProps) {
 
                 <div className="space-y-4">
                   <div>
+                    <Label className="text-sm font-medium mb-3 block">Способ связи *</Label>
+                    <RadioGroup
+                      value={customerData.contactMethod}
+                      onValueChange={(value: 'telegram' | 'whatsapp') =>
+                        setCustomerData((prev) => ({ ...prev, contactMethod: value }))
+                      }
+                      className="flex gap-6"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="telegram" id="telegram" />
+                        <Label htmlFor="telegram" className="cursor-pointer">Telegram</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="whatsapp" id="whatsapp" />
+                        <Label htmlFor="whatsapp" className="cursor-pointer">WhatsApp</Label>
+                      </div>
+                    </RadioGroup>
+                  </div>
+
+                  <div>
                     <Label htmlFor="customer-name">Имя *</Label>
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -225,6 +266,23 @@ export function Cart({ isOpen, onClose }: CartProps) {
                       />
                     </div>
                   </div>
+
+                  <div>
+                    <Label htmlFor="customer-telegram">
+                      Telegram {customerData.contactMethod === 'telegram' ? '*' : '(необязательно)'}
+                    </Label>
+                    <div className="relative">
+                      <MessageCircle className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="customer-telegram"
+                        placeholder="@username"
+                        value={customerData.telegramNick || ""}
+                        onChange={(e) => setCustomerData((prev) => ({ ...prev, telegramNick: e.target.value }))}
+                        className="pl-10"
+                        disabled={customerData.contactMethod === 'whatsapp'}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <Separator />
@@ -236,21 +294,18 @@ export function Cart({ isOpen, onClose }: CartProps) {
                     const optionsText = formatOptions(item.selectedOptions)
 
                     return (
-                      <div key={itemId} className="flex justify-between text-sm">
+                      <div key={itemId} className="text-sm">
                         <div>
                           <span>{item.name}</span>
                           {optionsText && <div className="text-xs text-gray-500">{optionsText}</div>}
+
                         </div>
-                        <span>
-                          ${item.price} × {item.quantity} = ${item.price * item.quantity}
-                        </span>
                       </div>
                     )
                   })}
                   <Separator />
-                  <div className="flex justify-between font-semibold">
-                    <span>Итого:</span>
-                    <span>${getTotalPrice()}</span>
+                  <div className="text-sm text-gray-600">
+                    <span>Цены и итоговая стоимость будут рассчитаны индивидуально после обсуждения деталей</span>
                   </div>
                 </div>
 
@@ -292,7 +347,6 @@ export function Cart({ isOpen, onClose }: CartProps) {
                           <div className="flex-1 min-w-0">
                             <h3 className="font-medium text-sm truncate">{item.name}</h3>
                             {optionsText && <p className="text-xs text-gray-500 mt-1">{optionsText}</p>}
-                            <p className="text-sm text-gray-600 mt-1">${item.price}</p>
                           </div>
                           <div className="flex flex-col items-end space-y-2">
                             <Button
@@ -303,27 +357,7 @@ export function Cart({ isOpen, onClose }: CartProps) {
                             >
                               <X className="h-3 w-3" />
                             </Button>
-                            <div className="flex items-center space-x-1">
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => updateQuantity(itemId, Math.max(0, item.quantity - 1))}
-                                className="h-6 w-6 p-0"
-                              >
-                                <Minus className="h-3 w-3" />
-                              </Button>
-                              <Badge variant="secondary" className="min-w-[24px] text-center">
-                                {item.quantity}
-                              </Badge>
-                              <Button
-                                size="sm"
-                                variant="outline"
-                                onClick={() => updateQuantity(itemId, item.quantity + 1)}
-                                className="h-6 w-6 p-0"
-                              >
-                                <Plus className="h-3 w-3" />
-                              </Button>
-                            </div>
+
                           </div>
                         </div>
                       </CardContent>
@@ -338,17 +372,10 @@ export function Cart({ isOpen, onClose }: CartProps) {
             <div className="border-t pt-4 space-y-4">
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span>Товары ({items.reduce((sum, item) => sum + item.quantity, 0)})</span>
-                  <span>${getTotalPrice()}</span>
+                  <span>Бренды ({items.length})</span>
                 </div>
-                <div className="flex justify-between text-sm text-gray-600">
-                  <span>Доставка из США</span>
-                  <span>Рассчитается отдельно</span>
-                </div>
-                <Separator />
-                <div className="flex justify-between font-semibold">
-                  <span>Итого</span>
-                  <span>${getTotalPrice()}</span>
+                <div className="text-sm text-gray-600">
+                  <span>Цены и доставка будут рассчитаны индивидуально</span>
                 </div>
               </div>
 

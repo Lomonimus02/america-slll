@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { Plus, Minus, Star, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
+import { Plus, Minus, ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
@@ -22,94 +22,94 @@ const extendedProductData: Record<number, any> = {
   1: {
     images: [
       "/placeholder.svg?height=500&width=500",
-      "/placeholder.svg?height=500&width=500&text=iPhone+Side",
-      "/placeholder.svg?height=500&width=500&text=iPhone+Back",
-      "/placeholder.svg?height=500&width=500&text=iPhone+Box",
+      "/placeholder.svg?height=500&width=500&text=Polo+Ralph+Lauren",
+      "/placeholder.svg?height=500&width=500&text=Polo+Collection",
+      "/placeholder.svg?height=500&width=500&text=Polo+Style",
     ],
     colors: [
-      { name: "Natural Titanium", value: "natural", hex: "#8E8E93" },
-      { name: "Blue Titanium", value: "blue", hex: "#1E3A8A" },
-      { name: "White Titanium", value: "white", hex: "#F8F9FA" },
-      { name: "Black Titanium", value: "black", hex: "#1C1C1E" },
+      { name: "Navy", value: "navy", hex: "#000080" },
+      { name: "White", value: "white", hex: "#FFFFFF" },
+      { name: "Red", value: "red", hex: "#DC143C" },
+      { name: "Green", value: "green", hex: "#228B22" },
     ],
-    storage: ["128GB", "256GB", "512GB", "1TB"],
+    sizes: ["XS", "S", "M", "L", "XL", "XXL"],
     specifications: {
-      Дисплей: "6.1″ Super Retina XDR",
-      Процессор: "A17 Pro chip",
-      Камера: "48MP Main + 12MP Ultra Wide + 12MP Telephoto",
-      Батарея: "До 23 часов видео",
-      Материал: "Титан Grade 5",
-      Защита: "IP68",
+      Бренд: "Polo Ralph Lauren",
+      Материал: "100% хлопок премиум",
+      Страна: "США",
+      Стиль: "Классический американский",
+      Качество: "Премиум",
+      Уход: "Машинная стирка",
     },
     features: [
-      "Action Button",
-      "USB-C разъем",
-      "Поддержка 5G",
-      "Face ID",
-      "Беспроводная зарядка",
-      "MagSafe совместимость",
+      "Премиальное качество",
+      "Классический дизайн",
+      "100% хлопок",
+      "Фирменный логотип",
+      "Американский стиль",
+      "Элегантность",
     ],
   },
   2: {
     images: [
       "/placeholder.svg?height=500&width=500",
-      "/placeholder.svg?height=500&width=500&text=Jordan+Side",
-      "/placeholder.svg?height=500&width=500&text=Jordan+Sole",
-      "/placeholder.svg?height=500&width=500&text=Jordan+Detail",
+      "/placeholder.svg?height=500&width=500&text=GLD+SHOP",
+      "/placeholder.svg?height=500&width=500&text=GLD+Jewelry",
+      "/placeholder.svg?height=500&width=500&text=GLD+Collection",
     ],
     colors: [
-      { name: "Chicago", value: "chicago", hex: "#DC143C" },
-      { name: "Bred", value: "bred", hex: "#000000" },
-      { name: "Royal", value: "royal", hex: "#1E3A8A" },
-      { name: "Shadow", value: "shadow", hex: "#6B7280" },
+      { name: "Gold", value: "gold", hex: "#FFD700" },
+      { name: "Silver", value: "silver", hex: "#C0C0C0" },
+      { name: "Rose Gold", value: "rosegold", hex: "#E8B4B8" },
+      { name: "Black", value: "black", hex: "#000000" },
     ],
-    sizes: ["US 7", "US 8", "US 9", "US 10", "US 11", "US 12", "US 13"],
+    sizes: ["One Size"],
     specifications: {
-      "Материал верха": "Кожа премиум класса",
-      Подошва: "Резина с узором",
-      Технология: "Air-Sole в пятке",
-      Стиль: "Высокие",
-      "Год выпуска": "1985 (ретро)",
-      Артикул: "555088-101",
+      Бренд: "GLD SHOP",
+      Материал: "Металлические сплавы",
+      Стиль: "Хип-хоп, уличный",
+      Покрытие: "Позолота/посеребрение",
+      Качество: "Высокое",
+      Гарантия: "6 месяцев",
     },
     features: [
-      "Классический дизайн 1985 года",
-      "Премиум кожа",
-      "Air-Sole амортизация",
-      "Резиновая подошва",
-      "Перфорация для вентиляции",
+      "Качественные материалы",
+      "Стильный дизайн",
+      "Хип-хоп стиль",
+      "Доступные цены",
+      "Модные аксессуары",
+      "Уличная культура",
     ],
   },
   3: {
     images: [
       "/placeholder.svg?height=500&width=500",
-      "/placeholder.svg?height=500&width=500&text=MacBook+Open",
-      "/placeholder.svg?height=500&width=500&text=MacBook+Side",
-      "/placeholder.svg?height=500&width=500&text=MacBook+Ports",
+      "/placeholder.svg?height=500&width=500&text=True+Religion",
+      "/placeholder.svg?height=500&width=500&text=True+Religion+Jeans",
+      "/placeholder.svg?height=500&width=500&text=True+Religion+Style",
     ],
     colors: [
-      { name: "Midnight", value: "midnight", hex: "#1C1C1E" },
-      { name: "Starlight", value: "starlight", hex: "#F8F9FA" },
-      { name: "Silver", value: "silver", hex: "#E5E5E7" },
-      { name: "Space Gray", value: "spacegray", hex: "#6B7280" },
+      { name: "Dark Blue", value: "darkblue", hex: "#00008B" },
+      { name: "Light Blue", value: "lightblue", hex: "#ADD8E6" },
+      { name: "Black", value: "black", hex: "#000000" },
+      { name: "White", value: "white", hex: "#FFFFFF" },
     ],
-    memory: ["8GB", "16GB", "24GB"],
-    storage: ["256GB SSD", "512GB SSD", "1TB SSD", "2TB SSD"],
+    sizes: ["28", "30", "32", "34", "36", "38", "40"],
     specifications: {
-      Процессор: "Apple M3 chip",
-      Дисплей: "13.6″ Liquid Retina",
-      Память: "До 24GB unified memory",
-      Батарея: "До 18 часов",
-      Вес: "1.24 кг",
-      Порты: "2x Thunderbolt, MagSafe 3",
+      Бренд: "True Religion",
+      Материал: "Премиальный деним",
+      Страна: "США",
+      Крой: "Дизайнерский",
+      Детали: "Фирменные строчки",
+      Качество: "Премиум",
     },
     features: [
-      "Apple M3 chip",
-      "Liquid Retina дисплей",
-      "1080p FaceTime HD камера",
-      "Magic Keyboard",
-      "Touch ID",
-      "Быстрая зарядка MagSafe",
+      "Премиальный деним",
+      "Уникальные строчки",
+      "Фирменные детали",
+      "Американское качество",
+      "Дизайнерский крой",
+      "Культовый бренд",
     ],
   },
 }
@@ -120,7 +120,7 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
   const [selectedSize, setSelectedSize] = useState("")
   const [selectedStorage, setSelectedStorage] = useState("")
   const [selectedMemory, setSelectedMemory] = useState("")
-  const [quantity, setQuantity] = useState(1)
+
   const [imageLoading, setImageLoading] = useState(false)
 
   if (!product) return null
@@ -134,7 +134,7 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
       name: product.name,
       price: product.price,
       image: product.image,
-      quantity: quantity,
+      quantity: 1,
       selectedOptions: {
         color: selectedColor,
         size: selectedSize,
@@ -247,28 +247,14 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
               <Badge variant="secondary" className="mb-2 animate-fade-in">
                 {product.category}
               </Badge>
-              <h1 className="text-2xl font-bold mb-2 animate-fade-in-up">{product.name}</h1>
-              <div className="flex items-center gap-2 mb-4 animate-fade-in-up" style={{ animationDelay: "100ms" }}>
-                <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4 fill-yellow-400 text-yellow-400 animate-twinkle" />
-                  <span className="text-sm font-medium">{product.rating}</span>
-                </div>
-                <span className="text-sm text-gray-500">(127 отзывов)</span>
-              </div>
+              <h1 className="text-2xl font-bold mb-4 animate-fade-in-up">{product.name}</h1>
               <p className="text-gray-600 mb-4 animate-fade-in-up" style={{ animationDelay: "200ms" }}>
                 {product.description}
               </p>
-              <div className="flex items-center gap-3 animate-fade-in-up" style={{ animationDelay: "300ms" }}>
-                <span className="text-3xl font-bold text-green-600 animate-price-pulse">${product.price}</span>
-                <span className="text-lg text-gray-500 line-through">${product.originalPrice}</span>
-                <Badge className="bg-red-500 animate-bounce-in">
-                  Экономия ${product.originalPrice - product.price}
-                </Badge>
-              </div>
             </div>
 
             {/* Color Selection */}
-            {extendedData.colors && (
+            {extendedData.colors && ![1, 2, 3].includes(product.id) && (
               <div className="animate-fade-in-up" style={{ animationDelay: "400ms" }}>
                 <Label className="text-sm font-medium mb-3 block">Цвет</Label>
                 <RadioGroup value={selectedColor} onValueChange={setSelectedColor} className="flex flex-wrap gap-2">
@@ -294,7 +280,7 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
             )}
 
             {/* Size Selection */}
-            {extendedData.sizes && (
+            {extendedData.sizes && ![1, 2, 3].includes(product.id) && (
               <div className="animate-fade-in-up" style={{ animationDelay: "500ms" }}>
                 <Label className="text-sm font-medium mb-3 block">Размер</Label>
                 <Select value={selectedSize} onValueChange={setSelectedSize}>
@@ -350,83 +336,20 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
               </div>
             )}
 
-            {/* Quantity */}
-            <div className="animate-fade-in-up" style={{ animationDelay: "800ms" }}>
-              <Label className="text-sm font-medium mb-3 block">Количество</Label>
-              <div className="flex items-center gap-3">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                  disabled={quantity <= 1}
-                  className="transition-all duration-200 hover:scale-110 active:scale-95"
-                >
-                  <Minus className="h-4 w-4" />
-                </Button>
-                <span className="text-lg font-medium w-8 text-center animate-number-change">{quantity}</span>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setQuantity(quantity + 1)}
-                  className="transition-all duration-200 hover:scale-110 active:scale-95"
-                >
-                  <Plus className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
+
 
             {/* Add to Cart */}
             <Button
-              className="w-full transition-all duration-200 hover:scale-105 active:scale-95 ripple animate-fade-in-up"
+              className="w-full bg-blue-900 hover:bg-blue-950 text-white transition-all duration-200 hover:scale-105 active:scale-95 ripple animate-fade-in-up"
               size="lg"
               onClick={handleAddToCart}
               style={{ animationDelay: "900ms" }}
             >
               <ShoppingCart className="h-4 w-4 mr-2" />
-              Добавить в корзину - ${product.price * quantity}
+              Заказать
             </Button>
 
-            {/* Specifications */}
-            {extendedData.specifications && (
-              <Card className="animate-fade-in-up" style={{ animationDelay: "1000ms" }}>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold mb-3">Характеристики</h3>
-                  <div className="space-y-2">
-                    {Object.entries(extendedData.specifications).map(([key, value], index) => (
-                      <div
-                        key={key}
-                        className="flex justify-between text-sm animate-fade-in-up"
-                        style={{ animationDelay: `${1100 + index * 50}ms` }}
-                      >
-                        <span className="text-gray-600">{key}:</span>
-                        <span className="font-medium">{value as string}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            )}
 
-            {/* Features */}
-            {extendedData.features && (
-              <Card className="animate-fade-in-up" style={{ animationDelay: "1200ms" }}>
-                <CardContent className="p-4">
-                  <h3 className="font-semibold mb-3">Особенности</h3>
-                  <ul className="space-y-1">
-                    {extendedData.features.map((feature: string, index: number) => (
-                      <li
-                        key={index}
-                        className="text-sm text-gray-600 flex items-center gap-2 animate-fade-in-up"
-                        style={{ animationDelay: `${1300 + index * 50}ms` }}
-                      >
-                        <div className="w-1.5 h-1.5 bg-blue-500 rounded-full animate-pulse" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            )}
           </div>
         </div>
       </DialogContent>

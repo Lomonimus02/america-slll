@@ -90,7 +90,7 @@ export function VantaBackground({
 }: VantaBackgroundProps) {
   const vantaRef = useRef<HTMLDivElement>(null)
   const vantaEffect = useRef<any>(null)
-  const { theme } = useTheme()
+  const { theme, resolvedTheme } = useTheme()
 
   useEffect(() => {
     // Очищаем предыдущий эффект
@@ -129,7 +129,9 @@ export function VantaBackground({
 
       // Инициализируем эффект
       if (vantaRef.current && window.VANTA && window.THREE && window.VANTA[effect]) {
-        const effectOptions = getEffectOptions(effect, theme)
+        // Используем resolvedTheme или fallback на 'dark' для начальной загрузки
+        const currentTheme = resolvedTheme || theme || 'dark'
+        const effectOptions = getEffectOptions(effect, currentTheme)
         vantaEffect.current = window.VANTA[effect]({
           el: vantaRef.current,
           THREE: window.THREE,
@@ -146,7 +148,7 @@ export function VantaBackground({
         vantaEffect.current.destroy()
       }
     }
-  }, [effect, theme])
+  }, [effect, theme, resolvedTheme])
 
 
 

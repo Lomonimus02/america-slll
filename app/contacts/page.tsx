@@ -91,8 +91,8 @@ export default function ContactsPage() {
         <div className="max-w-4xl mx-auto">
           {/* Hero Section */}
           <div className="text-center mb-12 animate-fade-in-up">
-            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-              Контакты
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+              контакты
             </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
@@ -182,7 +182,7 @@ export default function ContactsPage() {
             {/* Contact Form */}
             <Card className="animate-fade-in-up dark:bg-gray-800/50 dark:border-gray-700" style={{ animationDelay: "600ms" }}>
               <CardContent className="pt-6">
-                <h3 className="text-lg font-semibold mb-4 dark:text-white">Напишите нам</h3>
+                <h3 className="text-base font-semibold mb-4 dark:text-white">напишите нам</h3>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <Input
@@ -219,7 +219,7 @@ export default function ContactsPage() {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-blue-900 hover:bg-blue-950 text-white transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     <Send className="h-4 w-4 mr-2" />
                     {isSubmitting ? "Отправляем..." : "Отправить сообщение"}

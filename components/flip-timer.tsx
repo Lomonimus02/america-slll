@@ -73,10 +73,9 @@ interface FlipTimerProps {
 export function FlipTimer({ timeLeft }: FlipTimerProps) {
   return (
     <div className="flex justify-center gap-3 text-sm">
-      <FlipDigit digit={timeLeft.days.toString().padStart(2, "0")} label="дней" color="text-blue-600 dark:text-blue-400" />
-      <FlipDigit digit={timeLeft.hours.toString().padStart(2, "0")} label="часов" color="text-purple-600 dark:text-purple-400" />
-      <FlipDigit digit={timeLeft.minutes.toString().padStart(2, "0")} label="минут" color="text-orange-600 dark:text-orange-400" />
-      <FlipDigit digit={timeLeft.seconds.toString().padStart(2, "0")} label="секунд" color="text-red-600 dark:text-red-400" />
+      <FlipDigit digit={timeLeft.days.toString().padStart(2, "0")} label="дней" color="text-blue-900 dark:text-blue-300" />
+      <FlipDigit digit={timeLeft.hours.toString().padStart(2, "0")} label="часов" color="text-blue-900 dark:text-blue-300" />
+      <FlipDigit digit={timeLeft.minutes.toString().padStart(2, "0")} label="минут" color="text-blue-900 dark:text-blue-300" />
     </div>
   )
 }
