@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { WatermarkRemover } from '@/components/watermark-remover'
-import { ThemeProvider } from '@/components/theme-provider'
 
 export const metadata: Metadata = {
   title: 'v0 App',
@@ -16,16 +15,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
-          <WatermarkRemover />
-          {children}
-        </ThemeProvider>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+              })();
+            `,
+          }}
+        />
+      </head>
+      <body className="dark">
+        <WatermarkRemover />
+        {children}
       </body>
     </html>
   )

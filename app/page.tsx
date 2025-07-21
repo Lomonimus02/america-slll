@@ -20,7 +20,7 @@ export default function HomePage() {
   const { items } = useCart()
 
   const departureDate = new Date("2025-07-15")
-  const returnDate = new Date("2025-08-05") // 3 недели после отъезда
+  const returnDate = new Date("2025-08-25") // Возвращение 25 августа
 
   useEffect(() => {
     const timer = setInterval(
@@ -48,7 +48,7 @@ export default function HomePage() {
     const daysUntilReturn = getDaysUntilReturn()
 
     const totalDaysBeforeDeparture = 19 // с 26 июня до 15 июля
-    const totalDaysInAmerica = 21 // 3 недели в Америке
+    const totalDaysInAmerica = 41 // с 15 июля до 25 августа
 
     if (daysUntilDeparture > 0) {
       // До отлета: прогресс от 0% до 100%
@@ -154,7 +154,7 @@ export default function HomePage() {
       <footer className="bg-gray-100 dark:bg-gray-950 text-gray-800 dark:text-white py-8 px-4 animate-fade-in-up transition-colors duration-300">
         <div className="container mx-auto text-center">
           <p className="text-gray-600 dark:text-gray-400">
-            Сайт был создан студией Stellar Web-design
+            сайт создан студией <a href="https://t.me/dronston_dron" target="_blank" rel="noopener noreferrer" className="text-blue-600 dark:text-blue-400 hover:underline">Stellar Web-Design</a>
           </p>
         </div>
       </footer>

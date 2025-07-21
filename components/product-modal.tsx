@@ -126,7 +126,8 @@ export function ProductModal({ product, isOpen, onClose, onAddToCart }: ProductM
   if (!product) return null
 
   const extendedData = extendedProductData[product.id] || {}
-  const images = extendedData.images || [product.image]
+  // Используем изображения из продукта, если они есть, иначе из extendedData или fallback
+  const images = product.images || extendedData.images || [product.image]
 
   const handleAddToCart = (event: React.MouseEvent) => {
     const productWithOptions = {
